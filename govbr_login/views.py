@@ -21,6 +21,9 @@ class GovBrLoginAdapter(oauth2_views.OAuth2Adapter):
         domain=settings.SOCIALACCOUNT_GOVBR_SSO_DOMAIN,
         path=settings.SOCIALACCOUNT_GOVBR_USER_INFO_PATH,
     )
+    hint_param = settings.SOCIALACCOUNT_GOVBR_KC_IDP_HINT
+    if hint_param:
+        authorize_url = authorize_url + "&" + hint_param
 
     def complete_login(self, request, app, token, response):
         response = requests.get(
